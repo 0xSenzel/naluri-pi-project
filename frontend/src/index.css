@@ -1,0 +1,11 @@
+/* Inter Font Setup - @import must come first */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+/* Tailwind CSS v4 - single import replaces @tailwind directives */
+@import "tailwindcss";
+
+/* Apply Inter font globally and set a default dark background */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #111827; /* Tailwind gray-900 */
+}

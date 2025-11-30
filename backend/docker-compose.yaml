@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  redis:
+    image: redis:7-alpine # Lightweight Redis image
+    container_name: pi_redis
+    ports:
+      - "6379:6379" # Expose for development/testing
+    command: redis-server --save 60 1 --loglevel warning # Configures persistence for safety
+
+  pi_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.worker
+    container_name: pi_worker
+    depends_on:
+      - redis
+    # The worker runs on a powerful core, dedicating resources to it.
+
+  api_server:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: pi_api_server
+    ports:
+      - "8000:80" # Expose API on port 8000
+    depends_on:
+      - redis
