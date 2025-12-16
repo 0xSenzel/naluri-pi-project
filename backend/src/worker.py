@@ -59,12 +59,8 @@ while True:
 
             # Define the template for quantization (e.g., '0.000' for precision 3)
             quantizer = Decimal('0.' + '0' * current_precision)
-
-            # Quantize Pi and convert to string for saving
-            pi_decimal_quantized = pi_decimal.quantize(quantizer)
-            pi_str_quantized = str(pi_decimal_quantized)
             
-            # Quantize the Decimal object, then immediately convert it to a plain string
+            # Quantize the circumference to match pi's precision
             circumference_decimal = circumference.quantize(quantizer)
             circumference_str = str(circumference_decimal)
 
@@ -79,7 +75,7 @@ while True:
         try:
             # B. Persistence and Signaling (Atomic Update)
             with r.pipeline() as pipe:
-                pipe.set(PI_KEY, pi_str_quantized)
+                pipe.set(PI_KEY, pi_str)
                 pipe.set(PRECISION_KEY, current_precision)
                 pipe.set(CIRCUMFERENCE_KEY, circumference_str)
                 pipe.publish(REDIS_PUBSUB_CHANNEL, "UPDATE") # Signal API server
