@@ -13,13 +13,12 @@ app = FastAPI(
 )
 
 # --- CORS Configuration ---
-# If your React app is running locally, it's typically http://localhost:3000
 origins = [
     "http://localhost:3000",  # React development server
     "http://127.0.0.1:3000",
 ]
 
-# 3. Add the CORSMiddleware to the application
+# Add the CORSMiddleware to the application
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,             # List of origins permitted to make requests
